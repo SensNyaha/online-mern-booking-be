@@ -19,7 +19,13 @@ async function registerUser(req, res) {
         const newUser = new User({ name, email, password });
 
         const addedUser = await newUser.save();
-        res.json(addedUser);
+        if (addedUser) {
+            res.json({
+                status: 200,
+                success: true,
+                message: "User registered",
+            });
+        }
     } catch (e) {
         return res.status(500).json({
             status: 500,
